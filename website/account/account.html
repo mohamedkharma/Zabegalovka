@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      type="text/javascript"
+      src="https://npmcdn.com/parse/dist/parse.min.js">
+    </script>
+    <script>
+    // Initialize Parse
+    Parse.initialize("g7vsZFUXboXcGOQ4Sp297VFRPbhvUGh5sBIkQNRL", "QiOp20OeCT5KYoiUKfKMQojFq7qMjc7uRD3lua8M"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+    Parse.serverURL = "https://parseapi.back4app.com/";
+    </script>
+    
+    <title>Zabegalovka</title>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <script src="../script.js"></script>
+<!--     <script src="account.js"></script> -->
+    <script src="../amongus.js"></script>
+
+    <style>
+      body {
+        /* margin: 0;
+            padding: 10px;
+            padding-top: 100px;  */
+        /*             background-color: burlywood; */
+      }
+      .account .account-section-heading {
+        text-align: center;
+        margin-bottom: 80px;
+        font-family: "Ubuntu", sans-serif;
+        width: 100%;
+        padding: 27px;
+        padding-top: 50px;
+        background-color: #a3adbd;
+        border-radius: 5px;
+      }
+
+      .account .submit-area {
+        padding: 30px;
+        margin-top: 30px;
+        border-radius: 10px;
+        color: white;
+        background-color: rgb(81, 84, 94);
+        text-align: center;
+      }
+
+      .account #account-area {
+        font-family: "Ubuntu", sans-serif;
+        margin-top: 5%;
+      }
+
+      .account .balance {
+        background-color: rgb(139, 107, 59);
+        text-align: center;
+      }
+      .account .balance h5{
+        font-size: 20px;
+      }
+
+      .account .status {
+        margin: 0 20px;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .account .deposit-box input {
+        padding: 10px;
+        margin-top: 10px;
+      }
+
+      .account .deposit-box button, .vip-box button{
+        padding: 10px;
+        background: #f37f51;
+        border: 2px solid #f37f51;
+        transition: all 0.3s ease;
+        color: white;
+        margin-top: 10px;
+      }
+
+      .account .deposit-box button:hover, .vip-box button:hover {
+        background-color: #fdfdfd;
+        color: #f37f51;
+        box-shadow: 1px 2px 3px #fff;
+      }
+      .account .warn-info{
+        text-align: center;
+        padding: 25px;
+      }
+      .account .vip-info{
+        text-align: center;
+        padding: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!--NAVIGATION BAR-->
+    <nav class="navbar-order">
+      <div class="max-width">
+        <div class="logo">
+          <img
+            src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/z1.png?v=1652764083508"
+          />
+        </div>
+        <div class="nav-links-order">
+          <ul>
+            <li><a href="../indexAfterSignIn.html">Home</a></li>
+            <li><a href="../order/order.html">Order</a></li>
+            <li><a href="../discussions/discussions.html">Discussions</a></li>
+            <li><a href="../chef/chef.html">Chefs</a></li>
+            <li><a href="../account/account.html">Account</a></li>
+            <li><a href="../contact/contact.html">Contact Us</a></li>
+            <li><a href="../index.html">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="account" id="account">
+      <!-- Title -->
+      <div class="account-section-heading">
+        <h2><span>Your</span> Account</h2>
+        <p class="lead">
+          Thank you for your initial $300 has been added your balance
+          successfully!
+        </p>
+      </div>
+      <!-- Account blanace -->
+      <div id="account-area">
+        <div class="container">
+          <div class="balance status">
+            <h5>Balance</h5>
+            <h2>$ <span id="current-balance"></span></h2>
+          </div>
+        </div>
+
+      <!-- Account Deposit -->
+        <div class="container">
+          <div class="submit-area">
+            <div class="deposit-box">
+              <h4>Deposit Amount</h4>
+              <input
+                id="deposit-amount"
+                type="text"
+                class="form-control"
+                placeholder="Enter deposit amount"
+              /><br />
+              <button id="deposit-btn" class="btn btn-success">
+                Deposit
+              </button>
+            </div>
+          </div>
+          <div class="vip-info">
+            <i class='fas fa-user-alt' style='font-size:30px'></i>
+            <p><h3>This account is: <span id= "current-status"></span> account</h3>
+            <br>- To become a VIP member of the restaurant, spend $100 on orders <br> or order a total of 5 orders and press the button below!</p>
+            <div class="vip-box">
+                <button id="become-vip" onclick="checkVIP()">
+                  Become VIP
+                </button>
+            </div>
+          </div>
+        
+          <div class="warn-info">
+            <i class='fas fa-exclamation-triangle' style='font-size:30px;color:red'></i>
+            <p><h3>This account has: <span id= "warnings"></span> warnings</h3>
+            <br>- Please Note that having more than 3 warnings as regular customer will get you de-registered.</p> 
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <script>
+      // display the current balance for the user before he click deposit
+      start();
+      function start() {
+        
+        var current_blanance= getBalance();
+        document.getElementById("current-balance").innerHTML = current_blanance;
+      }
+      
+      //display the warnings number for the user
+      warning();
+      async function warning(){
+        
+        // Create a new instance of the user class
+        try{
+          query = new Parse.Query("Person");
+          query.equalTo("username", getUser());
+          let check=await query.first();
+          document.getElementById("warnings").innerHTML = check.get("warnings");
+          let wnum=check.get("warnings");
+        }catch(error){
+          alert(`Error: ${error.message}`);
+        }
+      }
+      
+      status();
+      async function status(){
+        
+        // Create a new instance of the user class
+        try{
+          query = new Parse.Query("Person");
+          query.equalTo("username", getUser());
+          let check=await query.first();
+          document.getElementById("current-status").innerHTML = check.get("status");
+          var stat=check.get("status");
+        }catch(error){
+          alert(`Error: ${error.message}`);
+        }
+      }
+      
+      //deposit button event handler
+      const deposit_btn = document.getElementById('deposit-btn');
+      deposit_btn.addEventListener('click', function(){
+
+          var depositStringToInt = getInputNumb("deposit-amount"); //get the intger of user input
+          current_blanance= parseInt(getBalance()); //parseInt() change recivied blanace to integer
+          let total = current_blanance + depositStringToInt;
+          document.getElementById("current-balance").innerHTML = total;
+          setBalance(total); //update locally
+          updateBalance(); //update in db
+        
+          //setting up the input field blank when clicked
+          document.getElementById('deposit-amount').value = "";
+
+      })
+
+      async function updateBalance() {
+        // Create a new instance of the user class
+        try{
+          query = new Parse.Query("Person");
+          query.equalTo("username", getUser());
+          let check=await query.first();
+          check.set("balance", parseInt(getBalance()));
+          await check.save();
+        }catch(error){
+          alert(`Error: ${error.message}`);
+        }
+      }
+      //function to parse string input to int
+      function getInputNumb(idName){
+          var amount = document.getElementById(idName).value;
+          var amountNumber = parseFloat(amount);
+          return amountNumber;
+      }
+      async function checkVIP(){
+        // Create a new instance of the user class
+        try{
+          query = new Parse.Query("Person");
+          query.equalTo("username", getUser());
+          let check=await query.first();
+          if(check.get("orders")>4||check.get("spent")>99){
+            check.set("status", "VIP");
+            await check.save();
+            makeVip();
+            alert("You have ascended to VIP status");
+          }
+          else{
+            alert("Did not meet the requirements");
+          }
+        }catch(error){
+          alert(`Error: ${error.message}`);
+        }
+        
+      }
+
+    </script>
+
+    <!-- Copyright Section -->
+    <footer>
+      <span
+        >Copyright | <span class="far fa-copyright"></span> Zabegalovka 2022 |
+        All rights reserved.</span
+      >
+    </footer>
+  </body>
+
+  <!-- PLUGINS 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script> -->
+</html>

@@ -1,0 +1,36 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  datasource:
+    password: 720ebcdf7d0211f4b6c02c54fdf2c5715fca66ad9a38774c05c4feb95f76a813
+    url: jdbc:postgresql://ec2-54-80-122-11.compute-1.amazonaws.com/d5mq49uja1mqll
+    username: agbudysqxgwzhd
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+  mail:
+    host:
+    port:
+    username:
+    password:
+
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000

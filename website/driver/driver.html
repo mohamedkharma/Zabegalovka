@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!-- This is the minified production version of parse js -->
+    <title>Zabegalovka</title>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <!-- ORDER CARD CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <script src="../script.js"></script>
+    <script src="../amongus.js"></script>
+    <script src="driver.js"></script>
+    <script
+      type="text/javascript"
+      src="https://npmcdn.com/parse/dist/parse.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://npmcdn.com/parse/dist/parse.min.js"
+    ></script>
+    <script>
+      // Initialize Parse
+      Parse.initialize(
+        "g7vsZFUXboXcGOQ4Sp297VFRPbhvUGh5sBIkQNRL",
+        "QiOp20OeCT5KYoiUKfKMQojFq7qMjc7uRD3lua8M"
+      ); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+      Parse.serverURL = "https://parseapi.back4app.com/";
+    </script>
+  </head>
+  <body>
+    <nav class="navbar-order">
+      <div class="max-width">
+        <div class="logo">
+          <img
+            src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/z1.png?v=1652764083508"
+          />
+        </div>
+        <div class="nav-links-order">
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <section class="driver" id="driver">
+      <div class="max-width">
+        <div class="driver-content">
+          <h4 class="text1">Want to help Zabegalovka?</h4>
+          <h2 class="text2">Come Join Our Delivery Team!!!!</h2>
+          <a href="bidding.html">Start Taking Orders NOW</a>
+        </div>
+      </div>
+    </section>
+    <footer>
+        <span>Copyright | <span class="far fa-copyright"></span> Zabegalovka 2022 | All rights reserved.</span>
+    </footer>
+    <script>
+        async function getOrder() {
+        //Create your Parse Query, and define the class it will be searched
+        const query = new Parse.Query("Order");
+            try {
+                // Executes the query, which returns an array of MyCustomClass
+                const results = await query.find();
+                showOrders(JSON.parse(JSON.stringify(results))) ////
+            } catch (error) {
+                console.log(`Error: ${JSON.stringify(error)}`);
+            }
+        }
+
+        function showOrders(data){
+        let orderContainer= document.querySelector('.job-tile-container')
+        let orderHTML= "";
+
+        data.forEach(
+            function (ord){
+                    jobHTML +=
+                    <div class="job-tile">
+                        <div class="job-tile-head">
+                            <div class="logo"><img src="${'logo.png'}"/></div>
+                        </div>
+                        <div class="job-tile-title">Employee Name: ${ord.user}</div>
+                        <div class="job-tile-desc">${ord.objectId}</div>
+                    </div>
+                    `
+        });
+
+        orderContainer.innerHTML = orderHTML
+      }
+    </script>
+  </body>
+  <script>
+    // Initialize Parse
+    Parse.initialize(
+      "g7vsZFUXboXcGOQ4Sp297VFRPbhvUGh5sBIkQNRL",
+      "QiOp20OeCT5KYoiUKfKMQojFq7qMjc7uRD3lua8M"
+    ); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+    Parse.serverURL = "https://parseapi.back4app.com/";
+
+    // Add on click listener to call the create parse user function
+    document
+      .getElementById("createButton")
+      .addEventListener("click", alert(currentUser));
+  </script>
+</htm

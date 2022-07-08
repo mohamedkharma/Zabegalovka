@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Zabegalovka</title>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <script src="../script.js"></script>
+    <script src="../amongus.js"></script>
+
+    <script src="../order.js"></script>
+    <script
+      type="text/javascript"
+      src="https://npmcdn.com/parse/dist/parse.min.js"
+    ></script>
+    <script>
+      // Initialize Parse
+      Parse.initialize(
+        "g7vsZFUXboXcGOQ4Sp297VFRPbhvUGh5sBIkQNRL",
+        "QiOp20OeCT5KYoiUKfKMQojFq7qMjc7uRD3lua8M"
+      ); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+      Parse.serverURL = "https://parseapi.back4app.com/";
+    </script>
+    <!-- font awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      #popular,
+      #rated {
+        margin-top: 30px;
+        text-align: center;
+      }
+      #category {
+        margin: 10px;
+        font-size: 35px;
+        color: black;
+        font-family: "Ubuntu", sans-serif;
+      }
+      #itemCard {
+        width: 245px;
+        height: 270px;
+        padding: 10px;
+        margin: 5px;
+        display: inline-block;
+        border-radius: 5px;
+        /*   background: rgb(128,129,129); */
+        background: peachpuff;
+        /*   background: darkgrey; */
+        cursor: pointer;
+        transition: 0.5s all ease-in-out;
+        margin-left: 30px;
+      }
+      #cardTop {
+        display: flex;
+        margin: 5px 0;
+        justify-content: space-between;
+      }
+      #ratings {
+        padding: 7px;
+        /*   color: goldenrod; */
+        color: black;
+        background: goldenrod;
+        font-size: 14px;
+        border-radius: 14px;
+        border: 1px solid goldenrod;
+      }
+      #itemCard img {
+        width: 150px;
+        height: 150px;
+        border-radius: 15%;
+        margin: auto;
+        display: block;
+        margin-bottom: 20px;
+        transition: 0.5s all ease-in-out;
+      }
+      #itemCard:hover img {
+        transform: scale(1.2);
+      }
+      #itemName {
+        margin: 5px 0;
+        font-weight: 600;
+        color: black;
+        font-size: 18px;
+      }
+      #itemPrice {
+        margin: 0;
+        font-weight: 500;
+        color: black;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <!--NAVIGATION BAR-->
+    <nav class="navbar-order">
+      <div class="max-width">
+        <div class="logo">
+          <img
+            src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/z1.png?v=1652764083508"
+          />
+        </div>
+        <div class="nav-links-order">
+          <ul>
+            <li><a href="../indexAfterSignIn.html">Home</a></li>
+            <li><a href="../order/order.html">Order</a></li>
+            <li><a href="../discussions/discussions.html">Discussions</a></li>
+            <li><a href="../chef/chef.html">Chefs</a></li>
+            <li><a href="../account/account.html">Account</a></li>
+            <li><a href="../contact/contact.html">Contact Us</a></li>
+            <li><a href="../index.html">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ORDER -->
+    <section id="order" class="order">
+      <div id="container" class="container">
+        <div id="food-container">
+          <div id="header">
+            <div class="add-box">
+              <i class="fa fa-map-marker your-address" id="add-address">
+                Your Address
+              </i>
+            </div>
+            <div class="util">
+              <i class="fa fa-search" id="search-dish"> Search </i>
+              <i class="fa fa-cart-plus" id="cart-plus"> 0 Items </i>
+            </div>
+          </div>
+
+          <div id="food-item" class="food-item">
+            <div id="popular">
+              <p id="category">Most Popular Orders</p>
+              <div id="itemCard">
+                <div id="cardTop">
+                  <i class="fa fa-star" id="ratings">3.2</i>
+                </div>
+                <img
+                  src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/Traditional-Cabbage-Rolls.webp?v=1652710341561"
+                  alt=""
+                />
+                <p id="itemName">Traditional Cabbage Rolls</p>
+                <p id="itemPrice">Price: $13.50</p>
+              </div>
+
+              <div id="itemCard">
+                <div id="cardTop">
+                  <i class="fa fa-star" id="ratings">4.5</i>
+                </div>
+                <img
+                  src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/Shuba-Salad.webp?v=1652711065286"
+                  alt=""
+                />
+                <p id="itemName">Shuba Salad</p>
+                <p id="itemPrice">Price: $9.5</p>
+              </div>
+
+              <div id="itemCard">
+                <div id="cardTop">
+                  <i class="fa fa-star" id="ratings">3.1</i>
+                </div>
+                <img
+                  src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/Kompot.webp?v=1652712808389"
+                  alt=""
+                />
+                <p id="itemName">Homemade Kompot</p>
+                <p id="itemPrice">Price: $3</p>
+              </div>
+            </div>
+
+            <div id="rated">
+              <p id="category">Most Rated Orders</p>
+              <div id="itemCard">
+                <div id="cardTop">
+                  <i class="fa fa-star" id="ratings">5</i>
+                </div>
+                <img
+                  src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/Adjika-Recipe.webp?v=1652709697935"
+                  alt=""
+                />
+                <p id="itemName">Adjika Spicy Sauce</p>
+                <p id="itemPrice">Price: $2.50</p>
+              </div>
+
+              <div id="itemCard">
+                <div id="cardTop">
+                  <i class="fa fa-star" id="ratings">5</i>
+                </div>
+                <img
+                  src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/The-Classic-Pierogis.webp?v=1652710579243"
+                  alt=""
+                />
+                <p id="itemName">The Classic Vareniki</p>
+                <p id="itemPrice">Price: $11</p>
+              </div>
+
+              <div id="itemCard">
+                <div id="cardTop">
+                  <i class="fa fa-star" id="ratings">4.9</i>
+                </div>
+                <img
+                  src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/Russian-Sweet-Piroshky.webp?v=1652712269973"
+                  alt=""
+                />
+                <p id="itemName">Piroshky with Poppy Seeds</p>
+                <p id="itemPrice">Price: $5.50</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="food-items">
+              <div id="starters">
+                <p id="category-name">Starters</p>
+              </div>
+
+              <div id="main-dish">
+                <p id="category-name">Main Dishes</p>
+              </div>
+
+              <div id="salads">
+                <p id="category-name">Salads</p>
+              </div>
+
+              <div id="soups">
+                <p id="category-name">Soups</p>
+              </div>
+
+              <div id="desserts">
+                <p id="category-name">Desserts</p>
+              </div>
+
+              <div id="drinks">
+                <p id="category-name">Drinks</p>
+              </div>
+
+              <div id="vip-only">
+                <p id="category-name">VIP Only</p>
+              </div>
+          </div>
+
+          <div id="cart-page" class="cart-toggle">
+            <p id="cart-title">Cart Items</p>
+            <table>
+              <thead>
+                <td>Item</td>
+                <td>Name</td>
+                <td>Quantity</td>
+                <td>Price</td>
+              </thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="cart">
+          <div id="checkout" class="cart-toggle">
+            <p id="total-item">Total Item: 0</p>
+            <p id="total-price">Total Amount: $0</p>
+            <p id="delivery">Spend $100 or make 5 orders to become VIP!</p>
+<!--             <div class="grid"> -->
+              <div>
+                Choose the delivery method for the order:
+                <div>
+                  <input
+                    type="radio"
+                    name="choice"
+                    value="choice-1"
+                    id="choice-1"
+                    checked
+                  />
+                  <label for="choice-1">Pick up in person</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="choice"
+                    value="choice-2"
+                    id="choice-2"
+                  />
+                  <label for="choice-2">Delivered by us </label>
+                </div>
+              </div>
+<!--             </div> -->
+            <button class="cart-btn" onclick="checkout()">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      function checkout() {
+        var price = document.getElementById("total-price").value;
+        alert("user:" + getUser());
+        if (getBalance() < price) {
+          alert("NOT ENOUGH BALANCE");
+        } else {
+          if((isVip()&& (parseInt(getOrders())-5)%4==0)){
+            alert("FREE DELIVERY");
+          }
+          setBalance(parseInt(getBalance()) - price);
+          setTotalSpent(parseInt(getTotalSpent()) + price);
+          updateSpent();
+          updateBalance();
+          setOrders(parseInt(getOrders()) + 1);
+          updateOrders();
+          createParseOrder();
+          alert("order placed");
+        }
+      }
+      async function updateBalance() {
+        // Create a new instance of the user class
+        try {
+          query = new Parse.Query("Person");
+          query.equalTo("username", getUser());
+          let check = await query.first();
+          check.set("balance", parseInt(getBalance()));
+          await check.save();
+        } catch (error) {
+          alert(`Error: ${error.message}`);
+        }
+      }
+      async function updateOrders() {
+        // Create a new instance of the user class
+        try {
+          query = new Parse.Query("Person");
+          query.equalTo("username", getUser());
+          let check = await query.first();
+          check.set("orders", parseInt(getOrders()));
+          await check.save();
+        } catch (error) {
+          alert(`Error: ${error.message}`);
+        }
+      }
+      async function updateSpent() {
+        // Create a new instance of the user class
+        try {
+          query = new Parse.Query("Person");
+          query.equalTo("username", getUser());
+          let check = await query.first();
+          check.set("spent", parseInt(getTotalSpent()));
+          alert(getTotalSpent());
+          await check.save();
+        } catch (error) {
+          alert(`Error: ${error.message}`);
+        }
+      }
+      async function createParseOrder() {
+        try {
+          let order = new Parse.Object("Order");
+          // Set the input values to the new "User" object
+          order.set("user", getUser());
+          order.set("status", "bidding");
+          await order.save();
+        } catch (error) {
+          alert(`Error: ${error.message}`);
+        }
+      }
+    </script>
+
+    <!-- JavaScript File -->
+    <script src="/order.js" type="module"></script>
+
+    <!-- Copyright Section -->
+    <footer>
+      <span
+        >Copyright | <span class="far fa-copyright"></span> Zabegalovka 2022 |
+        All rights reserved.</span
+      >
+    </footer>
+  </body>
+
+  <!-- PLUGINS 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script> -->
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Zabegalovka</title>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <script src="script.js"></script>
+
+    <style>
+      body {
+        /*             background-color: burlywood;  */
+      }
+      .orderNotSignedIn .most-popul p {
+        font-size: 22px;
+        padding: 25px;
+        background-color: #2a2c30;
+        font-family: "Ubuntu", sans-serif;
+        color: beige;
+        border-radius: 100px;
+        margin-bottom: 80px;
+        text-align: center;
+      }
+      .orderNotSignedIn .most-rated p {
+        font-size: 22px;
+        padding: 25px;
+        background-color: #2a2c30;
+        font-family: "Ubuntu", sans-serif;
+        color: beige;
+        border-radius: 100px;
+      }
+      .orderNotSignedIn h2 span {
+        color: #f3713d;
+      }
+      .orderNotSignedIn .orderNotSignedIn-section-heading {
+        text-align: center;
+        margin-bottom: 80px;
+        font-family: "Ubuntu", sans-serif;
+        width: 100%;
+        padding: 27px;
+        padding-top: 50px;
+        background-color: #a3adbd;
+        border-radius: 5px;
+      }
+      #popular,
+      #rated {
+        margin-top: 30px;
+        text-align: center;
+      }
+      #category {
+        margin: 10px;
+        font-size: 35px;
+        color: black;
+        font-family: "Ubuntu", sans-serif;
+      }
+      #itemCard {
+        width: 245px;
+        height: 270px;
+        padding: 10px;
+        margin: 5px;
+        display: inline-block;
+        border-radius: 5px;
+        /*   background: rgb(128,129,129); */
+        background: peachpuff;
+        /*   background: darkgrey; */
+        cursor: pointer;
+        transition: 0.5s all ease-in-out;
+        margin-left: 30px;
+      }
+      #cardTop {
+        display: flex;
+        margin: 5px 0;
+        justify-content: space-between;
+      }
+      #ratings {
+        padding: 7px;
+        /*   color: goldenrod; */
+        color: black;
+        background: goldenrod;
+        font-size: 14px;
+        border-radius: 14px;
+        border: 1px solid goldenrod;
+      }
+      #itemCard img {
+        width: 150px;
+        height: 150px;
+        border-radius: 15%;
+        margin: auto;
+        display: block;
+        margin-bottom: 20px;
+        transition: 0.5s all ease-in-out;
+      }
+      #itemCard:hover img {
+        transform: scale(1.2);
+      }
+      #itemName {
+        margin: 5px 0;
+        font-weight: 600;
+        color: black;
+        font-size: 18px;
+      }
+      #itemPrice {
+        margin: 0;
+        font-weight: 500;
+        color: black;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <!--NAVIGATION BAR-->
+    <nav class="navbar-order">
+      <div class="max-width">
+        <div class="logo">
+          <img
+            src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/z1.png?v=1652764083508"
+          />
+        </div>
+        <div class="nav-links-order">
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../orderNotSignedIn.html">Order</a></li>
+            <!--             <li><a href="../contact/contact.html">Contact Us</a></li> -->
+            <li><a href="../sign/sign.html">Sign In</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ORDER -->
+    <section class="orderNotSignedIn" id="orderNotSignedIn">
+      <!-- Title -->
+      <div class="orderNotSignedIn-section-heading">
+        <h2>Zabegalovka's <span>Dishes</span></h2>
+        <!-- <p class="lead">These are our top 3 popular dishes!</p> -->
+        <img
+          src="https://cdn.glitch.global/65bd84b8-6829-4701-9157-6be80ce8c23b/line-dec.png?v=1650600957627"
+        />
+      </div>
+      <div id="food-item" class="food-item">
+        <div id="popular">
+          <p id="category">Most Popular Orders</p>
+          <div id="itemCard">
+            <div id="cardTop">
+              <i class="fa fa-star" id="ratings">3.2</i>
+            </div>
+            <img src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/Traditional-Cabbage-Rolls.webp?v=1652710341561" alt="" />
+            <p id="itemName">Traditional Cabbage Rolls</p>
+            <p id="itemPrice">Price: $13.50</p>
+          </div>
+
+          <div id="itemCard">
+            <div id="cardTop">
+              <i class="fa fa-star" id="ratings">4.5</i>
+            </div>
+            <img
+              src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/Shuba-Salad.webp?v=1652711065286"
+              alt=""
+            />
+            <p id="itemName">Shuba Salad</p>
+            <p id="itemPrice">Price: $9.5</p>
+          </div>
+
+          <div id="itemCard">
+            <div id="cardTop">
+              <i class="fa fa-star" id="ratings">3.1</i>
+            </div>
+            <img
+              src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/Kompot.webp?v=1652712808389"
+              alt=""
+            />
+            <p id="itemName">Homemade Kompot</p>
+            <p id="itemPrice">Price: $3</p>
+          </div>
+        </div>
+        
+        <div id="rated">
+          <p id="category">Most Rated Orders</p>
+          <div id="itemCard">
+            <div id="cardTop">
+              <i class="fa fa-star" id="ratings">5</i>
+            </div>
+            <img src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/Adjika-Recipe.webp?v=1652709697935" alt="" />
+            <p id="itemName">Adjika Spicy Sauce</p>
+            <p id="itemPrice">Price: $2.50</p>
+          </div>
+
+          <div id="itemCard">
+            <div id="cardTop">
+              <i class="fa fa-star" id="ratings">5</i>
+            </div>
+            <img
+              src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/The-Classic-Pierogis.webp?v=1652710579243"
+              alt=""
+            />
+            <p id="itemName">The Classic Vareniki</p>
+            <p id="itemPrice">Price: $11</p>
+          </div>
+
+          <div id="itemCard">
+            <div id="cardTop">
+              <i class="fa fa-star" id="ratings">4.9</i>
+            </div>
+            <img
+              src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/Russian-Sweet-Piroshky.webp?v=1652712269973"
+              alt=""
+            />
+            <p id="itemName">Piroshky with Poppy Seeds</p>
+            <p id="itemPrice">Price: $5.50</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JavaScript File -->
+    <script src="/script.js" type="module"></script>
+
+    <!-- Copyright Section -->
+    <footer>
+      <span
+        >Copyright | <span class="far fa-copyright"></span> Zabegalovka 2022 |
+        All rights reserved.</span
+      >
+    </footer>
+  </body>
+
+  <!-- PLUGINS 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script> -->
+</html>

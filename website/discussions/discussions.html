@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Zabegalovka</title>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <script src="../script.js"></script>
+    
+
+    <style>
+/*         body{
+            background-color: burlywood;
+        } */
+/*         .discussion .content-title {
+        color: #231f20;
+        text-align: center;
+        width: 100%;
+        padding: 27px;
+        padding-top: 100px;
+        padding-bottom: 28px;
+        } */
+        h1 {
+            font-size: 28px;
+        }
+        .featured h2 span, .fgigs h2 span, .discussion h2 span {
+/*           color: #f3713d; */
+/*           color: black; */
+          color: #f37f51;
+        }
+/*         a{
+            color:#ff4901;
+            font-weight: bolder;
+            text-decoration: none;
+        } */
+        .discussion .discussion-section-heading{
+            text-align: center;
+            margin-bottom: 80px;
+            font-family: 'Ubuntu', sans-serif;
+            width: 100%;
+            padding: 27px;
+            padding-top: 50px;
+            background-color:#a3adbd;
+            border-radius: 5px;
+        }
+        .discussion .container{
+            margin: 50px;
+            padding: 20px;
+        }
+
+        .discussion .subforum-row{
+            display: grid;
+            grid-template-columns: 7% 60% 13% 20%;
+        }
+
+        .discussion .subforum-column{
+            padding: 10px;
+            margin:4px;
+            border-radius: 5px;
+            background-color:#8c94a0;
+        }
+
+        .discussion .subforum-description *{
+            margin-block: 0;
+        }
+
+        .discussion .center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .discussion .subforum-icon i{
+            font-size: 45px;
+/*             color: #f37f51; */
+          color: #FCF5E5;
+        }
+
+        .discussion .subforum-devider{
+            display: none;   
+        }
+
+          /* Search Box styles */
+        .discussion .search-box, .add-box{
+            /* border: solid 1px #f37f51; */
+            margin-top: 5px;
+            padding: 10px;
+            display:flex;
+            justify-content: center;
+            /* box-shadow:1px 2px 3px #d47d0b; */
+        }
+
+        .discussion .search-box select{
+            padding: 10px;
+        }
+
+        .discussion .search-box input, .add-box input {
+            padding: 10px;
+        }
+
+        .discussion .search-box button, .add-box button{
+            padding: 10px;
+            background: #f37f51;
+            border: 2px solid #f37f51;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .discussion .search-box button:hover, .add-box button:hover{
+            background-color: #fdfdfd;
+            color: #f37f51;
+            box-shadow: 1px 2px 3px #fff;
+        }   
+    </style>
+
+  </head>
+  <body>
+    
+    <!--NAVIGATION BAR-->
+    <nav class="navbar-order">
+      <div class="max-width">
+        <div class="logo">
+          <img
+            src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/z1.png?v=1652764083508"
+          />
+
+        </div>
+        <div class="nav-links-order">
+          <ul>
+            <li><a href="../indexAfterSignIn.html">Home</a></li>
+            <li><a href="../order/order.html">Order</a></li>
+            <li><a href="../discussions/discussions.html">Discussions</a></li>
+            <li><a href="../chef/chef.html">Chefs</a></li>
+            <li><a href="../account/account.html">Account</a></li>
+            <li><a href="../contact/contact.html">Contact Us</a></li>
+            <li><a href="../index.html">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <section class="discussion" id="discussion">
+
+        <div class="container">
+            <div class="subforum">
+                <!-- Title -->
+                <div class="discussion-section-heading">
+                    <h2><span>Zabegalovka's</span> Discussions </h2>
+                    <p class="lead">Express your opinion about us!</p>
+                    <img src="https://cdn.glitch.global/65bd84b8-6829-4701-9157-6be80ce8c23b/line-dec.png?v=1650600957627"/>
+                </div>
+                 <!-- Title -->
+                <!--SearchBox Section-->
+                <div class="search-box">
+                    <div>
+                        <select name="" id="">
+                            <option value="Everything">Everything</option>
+                            <option value="Titles">Titles</option>
+                            <option value="Descriptions">Descriptions</option>
+                        </select>
+                        <input type="text" name="q" placeholder="search ...">
+                        <button><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <!-- End Searchbox -->
+                <!-- Topic -->
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h4><a href="#">Food Looks</a></h4>
+                        <p>Topic Description: To chefs. The food looks very nice, Where did you learn how to cook?</p>
+                    </div>
+                    <!-- <div class="subforum-stats subforum-column center">
+                        <span>10 Comments | 4 Topics</span>
+                    </div> -->
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Created</a></b> by <a href="">customer1</a> 
+                        <br>on <small>14 May 2022</small>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="subforum-devider">
+
+                <div class="subforum-row">
+                    <div class="subforum-icon subforum-column center">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="subforum-description subforum-column">
+                        <h4><a href="#">Food Recipe</a></h4>
+                        <p>Topic Description: To chefs. The food is very tasty, How did you cook it?</p>
+                    </div>
+                    <!-- <div class="subforum-stats subforum-column center">
+                        <span>10 Comments | 4 Topics</span>
+                    </div> -->
+                    <div class="subforum-info subforum-column">
+                        <b><a href="">Created</a></b> by <a href="">customer2</a> 
+                        <br>on <small>14 May 2022</small>
+                    </div>
+                </div>
+            </div>
+            <!-- Topic -->
+            <!-- Add new topics -->     
+            <div class="add-box">
+                <form autocomplete="off" onsubmit="onFormSubmit()"> 
+                    <div>
+                        <input type="text" name="topicName" id="topicName" placeholder="Topic Title"> 
+                        <input type="text" name="topicDescription" id="topicDescription" placeholder="Topic Description">
+                        <button onclick="alert('Your topic will be created once the backend is figured out!')"><i class="fa fa-plus"> </i> Create Topic</button>
+                    </div>
+                </form> 
+            </div>
+            <!-- Add new topics -->   
+        </div>
+
+    </section>
+    <!-- Copyright Section -->
+    <footer>
+        <span>Copyright | <span class="far fa-copyright"></span> Zabegalovka 2022 | All rights reserved.</span>
+    </footer>
+  </body>
+  <!-- PLUGINS 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script> -->
+  
+</html>

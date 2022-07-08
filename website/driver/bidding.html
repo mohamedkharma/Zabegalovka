@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Zabegalovka</title>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <script src="../script.js"></script>
+    <script src="../amongus.js"></script>
+    <script
+      type="text/javascript"
+      src="https://npmcdn.com/parse/dist/parse.min.js"
+    ></script>
+    <script>
+      // Initialize Parse
+      Parse.initialize(
+        "g7vsZFUXboXcGOQ4Sp297VFRPbhvUGh5sBIkQNRL",
+        "QiOp20OeCT5KYoiUKfKMQojFq7qMjc7uRD3lua8M"
+      ); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+      Parse.serverURL = "https://parseapi.back4app.com/";
+    </script>
+
+    <style>
+      .bidding .bidding-section-heading {
+        text-align: center;
+        margin-bottom: 80px;
+        font-family: "Ubuntu", sans-serif;
+        width: 100%;
+        padding: 27px;
+        padding-top: 50px;
+        background-color: #a3adbd;
+        border-radius: 5px;
+      }
+
+      .bidding .bidding-center,
+      .bid-info {
+        padding: 10px;
+        text-align: center;
+        font-family: "Ubuntu", sans-serif;
+      }
+      .bidding .place-bidding {
+        padding-top: 25px;
+      }
+      .bidding .bid-instru {
+        text-align: left;
+      }
+      .bidding input {
+        padding: 7px;
+      }
+
+      .bidding button {
+        padding: 10px;
+        width: 100px;
+        background: #f37f51;
+        border: 2px solid #f37f51;
+        transition: all 0.3s ease;
+        color: white;
+      }
+
+      .bidding button:hover {
+        background-color: #fdfdfd;
+        color: #f37f51;
+        box-shadow: 1px 2px 3px #fff;
+      }
+
+      #timer {
+        color: red;
+        font-weight: bold;
+      }
+
+      #Winner {
+        font-weight: bold;
+      }
+      #orderId {
+        font-weight: bold;
+      }
+
+      #currentbid {
+        font-weight: bold;
+      }
+
+      #title1 {
+        font-family: "Shrikhand", cursive;
+      }
+    </style>
+  </head>
+  <body>
+    <!--NAVIGATION BAR-->
+    <nav class="navbar-order">
+      <div class="max-width">
+        <div class="logo">
+          <img
+            src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/z1.png?v=1652764083508"
+          />
+        </div>
+        <div class="nav-links-order">
+          <ul>
+            <li><a href="../index.html" onclick="logOut()">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="bidding" id="bidding">
+      <!-- Title -->
+      <div class="bidding-section-heading">
+        <h2><span>Zabegalovka's</span> Bidding Center</h2>
+        <p class="lead">Bid against other drivers!</p>
+        <img
+          src="https://cdn.glitch.global/65bd84b8-6829-4701-9157-6be80ce8c23b/line-dec.png?v=1650600957627"
+        />
+      </div>
+      <!-- Title -->
+      <div class="bidding-center">
+        <div class="bid-instru">
+          <p></p>
+          <h3>Instructions</h3>
+          <p></p>
+          <p>- This is the bidding center for Zabegalovka Restaurant</p>
+          <p>
+            - Each order bidding will be open for 2 Minutes. <br />- Every
+            delivery driver from the restaurant can compete in the bidding
+            <br />- Bidding winner will get the order!
+          </p>
+
+          <div class="bid-info">
+            <p>Time Remaining: <span id="timer">NO TIME</span> Seconds</p>
+            <p>Winning Bidder: <span id="Winner">No bidder Yet</span></p>
+            <p>
+              Ordered by:
+              <span id="orderId" onclick="fetchOrder()"> Press to Reveal </span>
+            </p>
+            <p>Starting Bid At: $<span id="currentbid">100</span></p>
+          </div>
+        </div>
+        <div class="place-bidding">
+          <p></p>
+          <h4>Bid Here!</h4>
+          <p></p>
+          <p> $ Bidding: <input id="newbid" type="text" /></p>
+          <button onclick="bid()">Bid</button>
+          <p><br />May the best bidder win!<br />And drive safe.</p>
+          <br />
+        </div>
+      </div>
+    </section>
+
+    <script>
+      var timer = 120; //2 minutes
+      var timeInterval = setInterval(runTimer, 1000); //run timer every 1000 milliseconds
+
+      function runTimer() {
+        var timerText = document.getElementById("timer");
+        timer -= 1;
+        timerText.innerHTML = timer;
+
+        if (timer === 0) {
+          window.clearInterval(timeInterval);
+          orderTimedOut();
+          alert("order timed out");
+          if (document.getElementById("Winner").innerHTML === getUser()) {
+            alert("YOU WON THE ORDER");
+            assignDriver();
+          }
+          window.location.reload();
+        }
+      }
+
+      function bid() {
+        if (timer > 0) {
+          var newname = document.getElementById("newname");
+          var newbid = document.getElementById("newbid");
+          var winner = document.getElementById("Winner");
+          var currentbid = document.getElementById("currentbid");
+          var numnewbid = Number(newbid.value);
+          var numcurrbid = Number(currentbid.innerHTML);
+
+          if (numnewbid < numcurrbid) {
+            currentbid.innerHTML = newbid.value;
+            winner.innerHTML = sessionStorage.getItem("currentUser");
+          }
+        }
+      }
+      async function fetchOrder() {
+        // Create a new instance of the user class
+        try {
+          query = new Parse.Query("Order");
+          query.equalTo("status", "bidding");
+          let order = await query.first();
+          var textId = document.getElementById("orderId");
+          textId.innerHTML = order.get("user");
+        } catch (error) {
+          alert(`Error: ${error.message}`);
+        }
+      }
+      async function orderTimedOut() {
+        try {
+          query = new Parse.Query("Order");
+          query.equalTo("status", "bidding");
+          let order = await query.first();
+          var winner = document.getElementById("Winner");
+          if (winner.innerHTML != "No bidder Yet")
+            order.set("status", "timed out");
+          else order.set("status", "being delivered");
+          await order.save();
+        } catch (error) {
+          alert(`Error: ${error.message}`);
+        }
+      }
+      async function assignDriver() {
+        try {
+          query = new Parse.Query("Order");
+          query.equalTo("status", "bidding");
+          let order = await query.first();
+          order.set("driver", getUser());
+          await order.save();
+        } catch (error) {
+          alert(`Error: ${error.message}`);
+        }
+      }
+    </script>
+    <!-- Copyright Section -->
+    <footer>
+      <span
+        >Copyright | <span class="far fa-copyright"></span> Zabegalovka 2022 |
+        All rights reserved.</span
+      >
+    </footer>
+  </body>
+  <!-- PLUGINS 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script> -->
+</html>

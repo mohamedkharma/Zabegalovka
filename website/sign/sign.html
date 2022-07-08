@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Zabegalovka</title>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://npmcdn.com/parse/dist/parse.min.js">
+    </script>
+    <script>
+    // Initialize Parse
+    Parse.initialize("g7vsZFUXboXcGOQ4Sp297VFRPbhvUGh5sBIkQNRL", "QiOp20OeCT5KYoiUKfKMQojFq7qMjc7uRD3lua8M"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+    Parse.serverURL = "https://parseapi.back4app.com/";
+    </script>
+    <script src="../script.js"></script>
+    <script src="../amongus.js"></script>
+    
+    <style>
+    .sign input{
+        padding: 10px;
+      margin-bottom: 10px;
+    }
+    .sign button{
+        padding: 10px;
+        
+        background: #f37f51;
+        border: 2px solid #f37f51;
+        transition: all 0.3s ease;
+        color: white;
+      cursor: pointer;
+      margin: 3px;
+    }
+
+    .sign button:hover{
+        background-color: #fdfdfd;
+        color: #f37f51;
+        box-shadow: 1px 2px 3px #fff;
+    }   
+    </style>
+    
+  </head>
+  <body>
+    <!--NAVIGATION BAR-->
+    <nav class="navbar-order">
+      <div class="max-width">
+        <div class="logo">
+          <img
+            src="https://cdn.glitch.global/f824a37e-a4ec-4323-99c4-e7c1da4c18ae/z1.png?v=1652764083508"/>
+        </div>
+        <div class="nav-links-order">
+          <ul>
+<!--             <li><a href="../index.html">Home</a></li> -->
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../order/orderNotSingedIn.html">Order</a></li>
+<!--             <li><a href="../driver/driver.html">Become a Driver</a></li> -->
+<!--             <li><a href="../contact/contact.html">Contact Us</a></li> -->
+            <li><a href="../sign/sign.html">Sign In</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <!--SIGN UP -->
+    <section class="sign" id="sign">
+      <div class="auth_form-container">
+        <div class="auth__form-container_fields-content">
+            <div class="auth__form-container_fields-content">
+              <input id="username" type="text" placeholder="Username" />
+              <input id="password" type="password" placeholder="Password" />
+              <button id="login" onclick="setUser()">Login</button>
+              <button id="createButton">Create User</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+    // Create a new User
+    async function createParsePerson() {
+      try{
+        let person = new Parse.Object("Person");
+        // Set the input values to the new "User" object
+        person.set("username", document.getElementById("username").value);
+        person.set("password", document.getElementById("password").value);
+        person.set("balance",300);
+        //person.set("warnings",0);
+        try{
+          let query = new Parse.Query("Person");
+          query.equalTo("username",document.getElementById("username").value);
+          let check=await query.first();
+          if(document.getElementById("username").value===check.get("username"))
+            alert("User with this username exists");
+        }catch(error){
+          await person.save();
+          alert(`New User Created`);
+        }
+      }
+      catch(error){
+        alert(`Error: ${error.message}`);
+      }
+    }
+      
+    async function login() {
+      // Create a new instance of the user class
+      try{
+        query = new Parse.Query("Person");
+        query.equalTo("username", document.getElementById("username").value);
+        let check=await query.first();
+        if(check.get("password")===document.getElementById("password").value){
+          if(check.get("warnings")===3){
+            check.destroy();
+            alert("account deleted");
+            return;
+          }
+          
+          if(check.get("warnings")==2){
+            if(check.get("status")==="VIP"){
+              check.set("status","customer");
+              check.set("warnings",0);
+              await check.save();
+            }
+          }
+          alert("Logged In");
+          setUser(document.getElementById("username").value);
+          setBalance(check.get("balance"));
+          sessionStorage.setItem("currentUser",document.getElementById("username").value);
+          sessionStorage.setItem("currentBalance", check.get("balance"));
+          sessionStorage.setItem("orders",check.get("orders"));
+          sessionStorage.setItem("totalSpent",check.get("spent"));
+          sessionStorage.setItem("vipStatus","Regular");
+          if(check.get("status")==="VIP"){
+            
+            sessionStorage.setItem("vipStatus",check.get("status"));
+            window.location.href = "../indexAfterSignIn.html";
+          }
+          alert("the user is "+getUser());
+          if(check.get("status")==="manager"){
+            window.location.href = "../manager/index.html";
+          }
+          else if(check.get("status")==="customer"){
+            window.location.href = "../indexAfterSignIn.html";
+          }
+          else if(check.get("status")==="driver"){
+            window.location.href = "../driver/bidding.html";
+          }
+        }
+        else
+          alert(query);
+      }catch(error){
+        alert(`Error: ${error.message}`);
+      }
+    }
+  
+    // Add on click listener to call the create parse user function
+    document.getElementById("login").addEventListener("click",async function () {
+      login();
+    });
+
+    // Add on click listener to call the create parse user function
+    document.getElementById("createButton").addEventListener("click", async function () {
+      createParsePerson();
+    });
+    </script>
+    <!-- Copyright Section -->
+    <footer>
+      <span
+        >Copyright | <span class="far fa-copyright"></span> Zabegalovka 2022 |
+        All rights reserved.</span
+      >
+    </footer>
+  </body>
+
+  <!-- PLUGINS 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script> -->
+</html>
